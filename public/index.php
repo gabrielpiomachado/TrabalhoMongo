@@ -12,7 +12,7 @@
         <p>Escolha uma das opções abaixo para acessar o cadastro:</p>
         <ul class="list-unstyled">
             <li><a href="../app/views/estudantes/index.php">Estudantes</a></li>
-            <li><a href="../app/views/cursos/index.php"">Cursos</a></li>
+            <li><a href="../app/views/cursos/index.php">Cursos</a></li>
         </ul>
     </div>
 </body>

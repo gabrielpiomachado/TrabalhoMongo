@@ -3,7 +3,9 @@ require __DIR__ . '/../../../vendor/autoload.php';
 require __DIR__ . '/../../../config/conexao.php';
 
 use MongoDB\BSON\ObjectId;
-$collection = $client->Trabalho_Mongo->Estudantes; 
+
+$collection = $client->Trabalho_Mongo->Estudantes;
+
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
@@ -25,12 +27,10 @@ if (isset($_GET['id'])) {
         echo "<script>alert('ID inválido.');</script>";
     }
 
-    // Redireciona para a listagem após a tentativa de deleção
     header('Location: index.php');
     exit;
 }
 
-// Busca todos os estudantes para exibição
 $result = $collection->find();
 ?>
 <!DOCTYPE html>
@@ -40,42 +40,45 @@ $result = $collection->find();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Estudantes</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
-    <h1>Estudantes</h1>
-    <p>Estudantes Cadastrados:</p>
-    <table border="1" cellpadding="10">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            $estudantesArray = iterator_to_array($result);
-            if (count($estudantesArray) < 1) {
-                echo "<tr><td colspan='2'>Nenhum Estudante foi encontrado!</td></tr>";
-            } else {
-                foreach ($estudantesArray as $estudante) {
-                    echo "<tr>";
-                    echo "<td>" . htmlspecialchars($estudante['nome']) . "</td>";
-                    echo "<td>";
-                    echo "<a href='edit.php?id=" . $estudante['_id'] . "'><button>Editar</button></a> ";
-                    echo "<a href='?id=" . $estudante['_id'] . "' onclick=\"return confirm('Tem certeza que deseja deletar este estudante?');\"><button>Deletar</button></a>";
-                    echo "</td>";
-                    echo "</tr>";
+    <div class="container mt-5">
+        <h1 class="mb-4">Estudantes</h1>
+        <a href="../estudantes/create.php" class="btn btn-primary mb-3">Cadastrar Novo Estudante</a>
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nome</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $estudantesArray = iterator_to_array($result);
+                if (count($estudantesArray) < 1) {
+                    echo "<tr><td colspan='2' class='text-center'>Nenhum Estudante foi encontrado!</td></tr>";
+                } else {
+                    foreach ($estudantesArray as $estudante) {
+                        echo "<tr>";
+                        echo "<td>" . htmlspecialchars($estudante['nome']) . "</td>";
+                        echo "<td>";
+                        echo "<a href='edit.php?id=" . $estudante['_id'] . "' class='btn btn-warning btn-sm'>Editar</a> ";
+                        echo "<a href='?id=" . $estudante['_id'] . "' class='btn btn-danger btn-sm' onclick=\"return confirm('Tem certeza que deseja deletar este estudante?');\">Deletar</a>";
+                        echo "</td>";
+                        echo "</tr>";
+                    }
                 }
-            }
-            ?>
-        </tbody>
-    </table>
+                ?>
+            </tbody>
+        </table>
+        <a href="../../../public/" class="btn btn-secondary">Voltar</a>
+    </div>
 
-    <br>
-    <button><a href="../estudantes/create.php">Cadastrar Novo Estudante</a></button>
-    <button><a href="../../../public/">Voltar</a></button>
-
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

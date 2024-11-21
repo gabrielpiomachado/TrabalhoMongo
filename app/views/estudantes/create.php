@@ -58,66 +58,95 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastrar Novo Estudante</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
-    <h1>Cadastrar Novo Estudante</h1>
-    <form method="POST" action="">
-        <label for="nome">Nome:</label><br>
-        <input type="text" id="nome" name="nome" required><br><br>
+    <div class="container mt-5">
+        <h1 class="mb-4">Cadastrar Novo Estudante</h1>
+        <form method="POST" action="">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="nome" class="form-label">Nome:</label>
+                    <input type="text" id="nome" name="nome" class="form-control" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="rg" class="form-label">RG:</label>
+                    <input type="text" id="rg" name="rg" class="form-control" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="cpf" class="form-label">CPF:</label>
+                    <input type="text" id="cpf" name="cpf" class="form-control" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="data_nascimento" class="form-label">Data de Nascimento:</label>
+                    <input type="date" id="data_nascimento" name="data_nascimento" class="form-control" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="telefone1" class="form-label">Telefone 1:</label>
+                    <input type="text" id="telefone1" name="telefone1" class="form-control" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="telefone2" class="form-label">Telefone 2:</label>
+                    <input type="text" id="telefone2" name="telefone2" class="form-control">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="nome_mae" class="form-label">Nome da Mãe:</label>
+                    <input type="text" id="nome_mae" name="nome_mae" class="form-control" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="nome_pai" class="form-label">Nome do Pai:</label>
+                    <input type="text" id="nome_pai" name="nome_pai" class="form-control">
+                </div>
+            </div>
+            
+            <h3 class="mb-3">Endereço</h3>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="rua" class="form-label">Rua:</label>
+                    <input type="text" id="rua" name="rua" class="form-control" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="numero" class="form-label">Número:</label>
+                    <input type="text" id="numero" name="numero" class="form-control" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="bairro" class="form-label">Bairro:</label>
+                    <input type="text" id="bairro" name="bairro" class="form-control" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="cidade" class="form-label">Cidade:</label>
+                    <input type="text" id="cidade" name="cidade" class="form-control" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="estado" class="form-label">Estado:</label>
+                    <input type="text" id="estado" name="estado" class="form-control" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="cep" class="form-label">CEP:</label>
+                    <input type="text" id="cep" name="cep" class="form-control" required>
+                </div>
+            </div>
 
-        <label for="rg">RG:</label><br>
-        <input type="text" id="rg" name="rg" required><br><br>
+            <div class="mb-3">
+                <label for="curso" class="form-label">Curso:</label>
+                <select id="curso" name="curso" class="form-select" required>
+                    <option value="">Selecione um curso</option>
+                    <?php
+                    foreach ($cursos as $curso) {
+                        echo "<option value='{$curso['_id']}'>{$curso['nome']}</option>";
+                    }
+                    ?>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Cadastrar</button>
+            <a href="../estudantes/index.php" class="btn btn-secondary">Voltar</a>
+        </form>
+    </div>
 
-        <label for="cpf">CPF:</label><br>
-        <input type="text" id="cpf" name="cpf" required><br><br>
-
-        <label for="data_nascimento">Data de Nascimento:</label><br>
-        <input type="date" id="data_nascimento" name="data_nascimento" required><br><br>
-
-        <label for="telefone1">Telefone 1:</label><br>
-        <input type="text" id="telefone1" name="telefone1" required><br><br>
-
-        <label for="telefone2">Telefone 2:</label><br>
-        <input type="text" id="telefone2" name="telefone2"><br><br>
-
-        <label for="nome_mae">Nome da Mãe:</label><br>
-        <input type="text" id="nome_mae" name="nome_mae" required><br><br>
-
-        <label for="nome_pai">Nome do Pai:</label><br>
-        <input type="text" id="nome_pai" name="nome_pai"><br><br>
-
-        <h3>Endereço</h3>
-        <label for="rua">Rua:</label><br>
-        <input type="text" id="rua" name="rua" required><br><br>
-
-        <label for="numero">Número:</label><br>
-        <input type="text" id="numero" name="numero" required><br><br>
-
-        <label for="bairro">Bairro:</label><br>
-        <input type="text" id="bairro" name="bairro" required><br><br>
-
-        <label for="cidade">Cidade:</label><br>
-        <input type="text" id="cidade" name="cidade" required><br><br>
-
-        <label for="estado">Estado:</label><br>
-        <input type="text" id="estado" name="estado" required><br><br>
-
-        <label for="cep">CEP:</label><br>
-        <input type="text" id="cep" name="cep" required><br><br>
-
-        <label for="curso">Curso:</label><br>
-        <select id="curso" name="curso" required>
-            <option value="">Selecione um curso</option>
-            <?php
-            foreach ($cursos as $curso) {
-                echo "<option value='{$curso['_id']}'>{$curso['nome']}</option>";
-            }
-            ?>
-        </select><br><br>
-        <button type="submit">Cadastrar</button>
-        <button><a href="../estudantes/index.php">Voltar</a></button>
-    </form>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
