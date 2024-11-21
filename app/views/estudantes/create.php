@@ -4,7 +4,10 @@ require __DIR__ . '/../../../config/conexao.php';
 
 $collection = $client->Trabalho_Mongo->Estudantes;
 
-// Processa o formulário quando enviado
+$collectionCursos = $client->Trabalho_Mongo->Cursos;
+
+$cursos = $collectionCursos->find();
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome = $_POST['nome'];
     $rg = $_POST['rg'];
@@ -14,8 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $telefone2 = $_POST['telefone2'];
     $nome_mae = $_POST['nome_mae'];
     $nome_pai = $_POST['nome_pai'];
+    $curso_selecionado = $_POST['curso'];
     
-    // Campos do endereço
     $endereco = [
         'rua' => $_POST['rua'],
         'numero' => $_POST['numero'],
@@ -25,7 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'cep' => $_POST['cep']
     ];
 
-    // Insere os dados no MongoDB
     $estudante = [
         'nome' => $nome,
         'rg' => $rg,
@@ -34,14 +36,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'telefones' => [$telefone1, $telefone2],
         'nome_mae' => $nome_mae,
         'nome_pai' => $nome_pai,
-        'endereco' => $endereco
+        'endereco' => $endereco,
+        'curso' => $curso_selecionado
     ];
 
     $insertResult = $collection->insertOne($estudante);
 
     if ($insertResult->getInsertedCount() > 0) {
         echo "<script>alert('Estudante cadastrado com sucesso!');</script>";
-        header('Location: index.php'); // Redireciona para a listagem
+        header('Location: index.php');
         exit;
     } else {
         echo "<script>alert('Erro ao cadastrar estudante.');</script>";
@@ -103,8 +106,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label for="cep">CEP:</label><br>
         <input type="text" id="cep" name="cep" required><br><br>
 
+        <label for="curso">Curso:</label><br>
+        <select id="curso" name="curso" required>
+            <option value="">Selecione um curso</option>
+            <?php
+            foreach ($cursos as $curso) {
+                echo "<option value='{$curso['_id']}'>{$curso['nome']}</option>";
+            }
+            ?>
+        </select><br><br>
         <button type="submit">Cadastrar</button>
-        <button><a href="../index.php">Voltar</a></button>
+        <button><a href="../estudantes/index.php">Voltar</a></button>
     </form>
 </body>
 

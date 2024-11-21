@@ -9,7 +9,6 @@ $collection = $client->Trabalho_Mongo->Estudantes;
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     
-    // Validando o ID e criando o ObjectId
     if (strlen($id) == 24 && ctype_xdigit($id)) {
         $objectId = new ObjectId($id);
     } else {
@@ -46,8 +45,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'estado' => $_POST['estado'],
         'cep' => $_POST['cep']
     ];
-
-    // Atualiza o documento no MongoDB
     $updateResult = $collection->updateOne(
         ['_id' => $objectId],
         [
@@ -63,8 +60,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ]
         ]
     );
-
-    // Redirecionar para a página de listagem após a atualização
     header('Location: index.php');
     exit;
 }
