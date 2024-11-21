@@ -3,7 +3,7 @@ require '../vendor/autoload.php';
 
 try {
     // Conectar ao MongoDB Atlas
-    $client = new MongoDB\Client("mongodb+srv://user:@cluster0.du21r.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
+    $client = new MongoDB\Client("mongodb+srv://mello:joaomello13@cluster0.du21r.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
 
     // Selecionar o banco de dados
     $db = $client->selectDatabase('Trabalho_Mongo');
